@@ -1,1 +1,24 @@
+<h1><%= @post.title %></h1>
+<div>
+  <%= @post.content %>
+</div>
 
+<h2>Categories</h2>
+<%= render 'categories/categories', categories: @post.categories %>
+
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment %>
+<% end %>
+
+<%# NEW comment %>
+<%= render 'comments/form', comment: @post.comments.build %>
+
+<h2>Users who commented this post</h2>
+<ul>
+<% @post.users.uniq.each do |user| %>
+  <li>
+    <%= link_to user.username, user %>
+  </li>  
+<% end %>
+</ul>
