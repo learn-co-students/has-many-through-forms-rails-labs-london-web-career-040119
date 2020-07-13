@@ -1,0 +1,26 @@
+<div>
+<%= form_for comment do |f| %>
+  <%= f.hidden_field :post_id %>
+
+  <div>
+    <%= f.label :content, 'New comment' %>
+    <%= f.text_field :content %>
+  </div>
+
+  <div>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  </div>
+
+  <div>
+    <%= f.fields_for :user_attributes, @post.comments.last.build_user do |user_fields| %>
+      <%= user_fields.label :username, 'New user' %>
+      <%= user_fields.text_field :username %>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= f.submit %>
+  </div>
+
+<% end %>
+</div>
